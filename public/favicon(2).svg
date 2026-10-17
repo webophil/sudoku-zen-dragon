@@ -1,0 +1,18 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" width="420" height="420">
+	<defs>
+		<linearGradient id="g1" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(420,420,-420,420,0,0)">
+			<stop offset="0" stop-color="#07e9ff"/>
+			<stop offset="1" stop-color="#398efc"/>
+		</linearGradient>
+	</defs>
+	<style>
+		tspan { white-space:pre } 
+		.s0 { fill: url(#g1) } 
+		.t1 { font-size: 400px;fill: #ffff00;font-weight: 400;font-family: "DynaPuff-Regular", "DynaPuff" } 
+	</style>
+	<path fill-rule="evenodd" class="s0" d="m100 0h220c55.23 0 100 44.77 100 100v220c0 55.23-44.77 100-100 100h-220c-55.23 0-100-44.77-100-100v-220c0-55.23 44.77-100 100-100z"/>
+	<text id="M" transform="translate(63,341)">
+		<tspan x="0" y="0" class="t1">M
+</tspan>
+	</text>
+</svg>

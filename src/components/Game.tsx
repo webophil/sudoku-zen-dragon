@@ -15,6 +15,7 @@ export const Game: React.FC = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
   const [errorCells, setErrorCells] = useState<[number, number][]>([]);
+  const [, setHintCell] = useState<[number, number] | null>(null);
 
   const startNewGame = useCallback((difficulty: Difficulty = gameState?.difficulty || 'zen') => {
     const newState = generateSudoku(difficulty);
@@ -115,6 +116,13 @@ export const Game: React.FC = () => {
   if (!gameState) return null;
 
   const hasMovesLeft = gameState.grid.some(row => row.some(value => value === null));
+  const numberCounts = gameState.grid.flat().reduce((counts, value) => {
+    if (value !== null) counts[value] += 1;
+    return counts;
+  }, Array<number>(10).fill(0));
+  const completedNumbers = numberCounts
+    .map((count, number) => count === 9 ? number : null)
+    .filter((number): number is number => number !== null && number > 0);
 
   return (
     <main className="mx-auto grid min-h-screen w-full max-w-[1500px] grid-cols-1 items-start gap-6 px-4 py-6 xl:grid-cols-[minmax(210px,250px)_minmax(420px,1fr)_minmax(220px,260px)] xl:gap-8 xl:px-8 xl:py-10">
@@ -153,7 +161,11 @@ export const Game: React.FC = () => {
           onNewGame={() => startNewGame(gameState.difficulty)}
           isGameWon={isGameWon}
         />
-        <Keypad onNumberClick={handleNumberInput} onClearClick={handleClear} />
+        <Keypad
+          onNumberClick={handleNumberInput}
+          onClearClick={handleClear}
+          completedNumbers={completedNumbers}
+        />
         <Button onClick={handleHint} disabled={!hasMovesLeft || isGameOver || isGameWon} variant="outline" className="w-full gap-2">
           <Lightbulb className="h-4 w-4" />
           Indice

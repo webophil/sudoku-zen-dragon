@@ -88,7 +88,7 @@
 }
 
 .sudoku-cell-same-number {
-  background-color: hsl(205 100% 92%);
+  background-color: #5ca1d2;
 }
 
 .dark .sudoku-cell-same-number {

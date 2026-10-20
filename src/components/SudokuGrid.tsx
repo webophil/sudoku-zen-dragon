@@ -6,6 +6,7 @@ interface SudokuGridProps {
   grid: (number | null)[][];
   fixed: boolean[][];
   selectedCell: [number, number] | null;
+  highlightedNumber: number | null;
   onCellClick: (row: number, col: number) => void;
   errorCells: [number, number][];
 }
@@ -14,6 +15,7 @@ export const SudokuGrid: React.FC<SudokuGridProps> = ({
   grid,
   fixed,
   selectedCell,
+  highlightedNumber,
   onCellClick,
   errorCells,
 }) => {
@@ -24,9 +26,7 @@ export const SudokuGrid: React.FC<SudokuGridProps> = ({
     errorCells.some(([er, ec]) => er === r && ec === c);
 
   const isSameNumber = (r: number, c: number) => {
-    if (!selectedCell) return false;
-    const selectedValue = grid[selectedCell[0]][selectedCell[1]];
-    return selectedValue !== null && grid[r][c] === selectedValue;
+    return highlightedNumber !== null && grid[r][c] === highlightedNumber;
   };
 
   return (

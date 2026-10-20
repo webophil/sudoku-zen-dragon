@@ -15,6 +15,7 @@ export const Game: React.FC = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
   const [errorCells, setErrorCells] = useState<[number, number][]>([]);
+  const [highlightedNumber, setHighlightedNumber] = useState<number | null>(null);
   const [, setHintCell] = useState<[number, number] | null>(null);
 
   const startNewGame = useCallback((difficulty: Difficulty = gameState?.difficulty || 'zen') => {
@@ -26,6 +27,7 @@ export const Game: React.FC = () => {
     setIsGameOver(false);
     setIsGameWon(false);
     setErrorCells([]);
+    setHighlightedNumber(null);
   }, [gameState?.difficulty]);
 
   useEffect(() => {
@@ -74,6 +76,7 @@ export const Game: React.FC = () => {
       const newGrid = [...gameState.grid.map(row => [...row])];
       newGrid[r][c] = num;
       setGameState({ ...gameState, grid: newGrid });
+      setHighlightedNumber(num);
       
       // Check if win
       const isWon = newGrid.every((row, rIdx) => 
@@ -146,6 +149,7 @@ export const Game: React.FC = () => {
           grid={gameState.grid}
           fixed={gameState.fixed}
           selectedCell={selectedCell}
+          highlightedNumber={highlightedNumber}
           onCellClick={handleCellClick}
           errorCells={errorCells}
         />

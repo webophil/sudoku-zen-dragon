@@ -88,7 +88,11 @@
 }
 
 .sudoku-cell-same-number {
-  @apply bg-primary/5;
+  background-color: hsl(205 100% 92%);
+}
+
+.dark .sudoku-cell-same-number {
+  background-color: hsl(210 45% 24%);
 }
 
 /* Subgrid borders */

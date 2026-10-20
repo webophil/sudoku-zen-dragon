@@ -143,7 +143,9 @@ export const Game: React.FC = () => {
 
       <section className="order-1 flex min-w-0 flex-col items-center gap-5 xl:order-2">
         <h1 className="text-center text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-          Sudoku Zen Dragon
+          <span className="text-foreground">Sudoku </span>
+          <span className="text-[#5ca1d2]">Zen</span>
+          <span className="text-foreground"> Dragon</span>
         </h1>
         <SudokuGrid
           grid={gameState.grid}

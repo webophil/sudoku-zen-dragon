@@ -29,7 +29,7 @@ export const SudokuCell: React.FC<SudokuCellProps> = ({
         isFixed && 'sudoku-cell-fixed',
         isSelected && 'sudoku-cell-selected',
         isError && 'sudoku-cell-error',
-        isSameNumber && !isSelected && 'sudoku-cell-same-number'
+        isSameNumber && 'sudoku-cell-same-number'
       )}
     >
       <motion.span

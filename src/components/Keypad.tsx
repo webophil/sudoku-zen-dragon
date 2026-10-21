@@ -13,7 +13,7 @@ export const Keypad: React.FC<KeypadProps> = ({ onNumberClick, onClearClick, com
 
   return (
     <div className="grid grid-cols-3 gap-2 w-full max-w-[240px] mx-auto mt-6">
-      {numbers.map((num) => (
+      {numbers.filter((num) => !completedNumbers.includes(num)).map((num) => (
         <motion.div
           key={num}
           whileHover={{ scale: 1.05 }}
@@ -21,12 +21,11 @@ export const Keypad: React.FC<KeypadProps> = ({ onNumberClick, onClearClick, com
         >
           <Button
             variant="outline"
-            className="w-full h-12 text-xl font-medium disabled:cursor-not-allowed disabled:opacity-40"
+            className="keypad-number-button w-full h-12 text-xl font-semibold"
             onClick={() => onNumberClick(num)}
-            disabled={completedNumbers.includes(num)}
-            aria-label={completedNumbers.includes(num) ? `Le chiffre ${num} est déjà complété` : `Placer le ${num}`}
+            aria-label={`Placer le ${num}`}
           >
-            {num}
+            <span className="relative z-10">{num}</span>
           </Button>
         </motion.div>
       ))}

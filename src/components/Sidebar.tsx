@@ -51,7 +51,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 variant={difficulty === diff.value ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => onDifficultyChange(diff.value)}
-                className="capitalize"
+                aria-pressed={difficulty === diff.value}
+                className={cn(
+                  'difficulty-button capitalize',
+                  difficulty === diff.value ? 'difficulty-button-active' : 'difficulty-button-inactive'
+                )}
               >
                 {diff.label}
               </Button>

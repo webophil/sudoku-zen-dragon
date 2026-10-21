@@ -13,20 +13,23 @@ export const Keypad: React.FC<KeypadProps> = ({ onNumberClick, onClearClick, com
 
   return (
     <div className="grid grid-cols-3 gap-2 w-full max-w-[240px] mx-auto mt-6">
-      {numbers.filter((num) => !completedNumbers.includes(num)).map((num) => (
+      {numbers.map((num) => (
         <motion.div
           key={num}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          className="h-12"
+          whileHover={completedNumbers.includes(num) ? undefined : { scale: 1.05 }}
+          whileTap={completedNumbers.includes(num) ? undefined : { scale: 0.95 }}
         >
-          <Button
-            variant="outline"
-            className="keypad-number-button w-full h-12 text-xl font-semibold"
-            onClick={() => onNumberClick(num)}
-            aria-label={`Placer le ${num}`}
-          >
-            <span className="relative z-10">{num}</span>
-          </Button>
+          {!completedNumbers.includes(num) && (
+            <Button
+              variant="outline"
+              className="keypad-number-button w-full h-12 text-xl font-semibold"
+              onClick={() => onNumberClick(num)}
+              aria-label={`Placer le ${num}`}
+            >
+              <span className="relative z-10">{num}</span>
+            </Button>
+          )}
         </motion.div>
       ))}
       <motion.div

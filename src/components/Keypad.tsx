@@ -39,7 +39,7 @@ export const Keypad: React.FC<KeypadProps> = ({ onNumberClick, onClearClick, com
       >
         <Button
           variant="ghost"
-          className="w-full h-10 text-sm font-medium text-muted-foreground"
+          className="hidden w-full h-10 text-sm font-medium text-muted-foreground"
           onClick={onClearClick}
         >
           Effacer

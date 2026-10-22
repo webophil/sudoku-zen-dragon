@@ -174,7 +174,6 @@ export const Game: React.FC = () => {
         />
         <Button onClick={handleHint} disabled={!hasMovesLeft || isGameOver || isGameWon} variant="outline" className="w-full gap-2">
           <Lightbulb className="h-4 w-4" />
-          Indice
         </Button>
       </aside>
     </main>

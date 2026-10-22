@@ -4,8 +4,6 @@ import { Sidebar } from './Sidebar';
 import { Keypad } from './Keypad';
 import { Difficulty, generateSudoku, SudokuState } from '@/lib/sudoku';
 import { toast } from 'sonner';
-import { Lightbulb } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 export const Game: React.FC = () => {
   const [gameState, setGameState] = useState<SudokuState | null>(null);
@@ -16,7 +14,6 @@ export const Game: React.FC = () => {
   const [isGameWon, setIsGameWon] = useState(false);
   const [errorCells, setErrorCells] = useState<[number, number][]>([]);
   const [highlightedNumber, setHighlightedNumber] = useState<number | null>(null);
-  const [, setHintCell] = useState<[number, number] | null>(null);
 
   const startNewGame = useCallback((difficulty: Difficulty = gameState?.difficulty || 'zen') => {
     const newState = generateSudoku(difficulty);
@@ -45,25 +42,6 @@ export const Game: React.FC = () => {
   const handleCellClick = (row: number, col: number) => {
     if (isGameOver || isGameWon) return;
     setSelectedCell([row, col]);
-  };
-
-  const handleHint = () => {
-    if (!gameState || isGameOver || isGameWon) return;
-    const selected = selectedCell && !gameState.fixed[selectedCell[0]][selectedCell[1]] &&
-      gameState.grid[selectedCell[0]][selectedCell[1]] === null ? selectedCell : null;
-    const nextCell = selected ?? gameState.grid.flatMap((row, r) =>
-      row.map((value, c) => value === null ? [r, c] as [number, number] : null)
-    ).find((cell): cell is [number, number] => cell !== null);
-
-    if (!nextCell) {
-      toast.info('La grille est déjà complétée.');
-      return;
-    }
-
-    const [row, col] = nextCell;
-    setSelectedCell(nextCell);
-    setHintCell(nextCell);
-    toast.info(`Indice : ligne ${row + 1}, colonne ${col + 1} — placez le ${gameState.solution[row][col]}.`);
   };
 
   const handleNumberInput = (num: number) => {
@@ -172,9 +150,6 @@ export const Game: React.FC = () => {
           onClearClick={handleClear}
           completedNumbers={completedNumbers}
         />
-        <Button onClick={handleHint} disabled={!hasMovesLeft || isGameOver || isGameWon} variant="outline" className="w-full gap-2">
-          <Lightbulb className="h-4 w-4" />
-        </Button>
       </aside>
     </main>
   );

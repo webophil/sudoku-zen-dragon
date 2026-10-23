@@ -107,6 +107,17 @@
   transition: filter 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
+.keypad-number-button-completed,
+.keypad-number-button-completed:disabled {
+  border: 1px solid #dedede !important;
+  background: #fff !important;
+  color: #111 !important;
+  opacity: 1 !important;
+  text-shadow: none;
+  box-shadow: none;
+  cursor: default;
+}
+
 .difficulty-button-active {
   border-color: #55565b !important;
   background: linear-gradient(180deg, #a9aaad 0%, #77797e 45%, #4b4d52 100%) !important;

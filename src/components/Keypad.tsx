@@ -13,25 +13,28 @@ export const Keypad: React.FC<KeypadProps> = ({ onNumberClick, onClearClick, com
 
   return (
     <div className="grid grid-cols-3 gap-2 w-full max-w-[240px] mx-auto mt-6">
-      {numbers.map((num) => (
-        <motion.div
-          key={num}
-          className="h-12"
-          whileHover={completedNumbers.includes(num) ? undefined : { scale: 1.05 }}
-          whileTap={completedNumbers.includes(num) ? undefined : { scale: 0.95 }}
-        >
-          {!completedNumbers.includes(num) && (
+      {numbers.map((num) => {
+        const isCompleted = completedNumbers.includes(num);
+
+        return (
+          <motion.div
+            key={num}
+            className="h-12"
+            whileHover={isCompleted ? undefined : { scale: 1.05 }}
+            whileTap={isCompleted ? undefined : { scale: 0.95 }}
+          >
             <Button
               variant="outline"
-              className="keypad-number-button w-full h-12 text-xl font-semibold"
+              className={`${isCompleted ? 'keypad-number-button-completed' : 'keypad-number-button'} w-full h-12 text-xl font-semibold`}
               onClick={() => onNumberClick(num)}
-              aria-label={`Placer le ${num}`}
+              disabled={isCompleted}
+              aria-label={isCompleted ? `Le ${num} est déjà complété` : `Placer le ${num}`}
             >
               <span className="relative z-10">{num}</span>
             </Button>
-          )}
-        </motion.div>
-      ))}
+          </motion.div>
+        );
+      })}
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

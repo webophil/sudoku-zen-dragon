@@ -108,9 +108,9 @@ export const Game: React.FC = () => {
           onDifficultyChange={handleDifficultyChange}
           errors={errors}
           time={time}
-          onNewGame={() => startNewGame(gameState.difficulty)}
           isGameWon={isGameWon}
           isGameOver={isGameOver}
+          onNewGame={() => startNewGame(gameState.difficulty)}
         />
       </aside>
 

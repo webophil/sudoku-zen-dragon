@@ -77,7 +77,7 @@
 
 .sudoku-cell-selected {
   /* @apply bg-primary/10 text-primary; */
-  background-color: #a78989;
+  background-color: #70a8d5;
 }
 
 .sudoku-cell-error {

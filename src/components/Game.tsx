@@ -67,7 +67,9 @@ export const Game: React.FC = () => {
     } else {
       setErrors(prev => {
         const newCount = prev + 1;
-        if (newCount >= 3) {
+        if (newCount === 3) {
+          toast.warning("C'était votre dernière erreur possible.");
+        } else if (newCount >= 4) {
           setIsGameOver(true);
           toast.error('Partie terminée ! Trop d\'erreurs.');
         }

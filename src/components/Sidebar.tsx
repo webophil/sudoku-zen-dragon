@@ -13,6 +13,7 @@ interface SidebarProps {
   time: number;
   onNewGame: () => void;
   isGameWon: boolean;
+  isGameOver: boolean;
 }
 
 const formatTime = (seconds: number) => {
@@ -29,6 +30,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   time,
   onNewGame,
   isGameWon,
+  isGameOver,
 }) => {
   const difficulties: { value: Difficulty; label: string }[] = [
     { value: 'zen', label: 'Zen' },
@@ -94,6 +96,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <RefreshCw className="h-5 w-5" />
             Nouvelle Grille
           </Button>
+
+          {errors === 3 && !isGameOver && (
+            <Card className="border-none bg-primary text-primary-foreground shadow-xl">
+              <CardContent className="flex flex-col items-center gap-2 py-6 text-center">
+                <AlertCircle className="mb-2 h-12 w-12 text-yellow-500" />
+                <h3 className="text-xl font-bold">Dernière erreur possible</h3>
+                <p className="text-sm opacity-90">C’était votre dernière erreur possible.</p>
+              </CardContent>
+            </Card>
+          )}
+
+          {isGameOver && (
+            <Card className="border-none bg-primary text-primary-foreground shadow-xl">
+              <CardContent className="flex flex-col items-center gap-2 py-6 text-center">
+                <AlertCircle className="mb-2 h-12 w-12 text-destructive" />
+                <h3 className="text-xl font-bold">Partie terminée</h3>
+                <p className="text-sm opacity-90">Vous avez atteint 4 erreurs.</p>
+              </CardContent>
+            </Card>
+          )}
 
           {isGameWon && (
             <Card className="border-none bg-primary text-primary-foreground shadow-xl">

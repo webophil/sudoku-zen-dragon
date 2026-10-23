@@ -65,16 +65,8 @@ export const Game: React.FC = () => {
         toast.success('Victoire ! Vous avez terminé la grille.');
       }
     } else {
-      setErrors(prev => {
-        const newCount = prev + 1;
-        if (newCount === 3) {
-          toast.warning("C'était votre dernière erreur possible.");
-        } else if (newCount >= 4) {
-          setIsGameOver(true);
-          toast.error('Partie terminée ! Trop d\'erreurs.');
-        }
-        return newCount;
-      });
+      setErrors(errors + 1);
+      if (errors >= 3) setIsGameOver(true);
       setErrorCells(prev => [...prev, [r, c]]);
       setTimeout(() => {
         setErrorCells(prev => prev.filter(([er, ec]) => er !== r || ec !== c));
@@ -118,6 +110,7 @@ export const Game: React.FC = () => {
           time={time}
           onNewGame={() => startNewGame(gameState.difficulty)}
           isGameWon={isGameWon}
+          isGameOver={isGameOver}
         />
       </aside>
 
@@ -146,6 +139,7 @@ export const Game: React.FC = () => {
           time={time}
           onNewGame={() => startNewGame(gameState.difficulty)}
           isGameWon={isGameWon}
+          isGameOver={isGameOver}
         />
         <Keypad
           onNumberClick={handleNumberInput}

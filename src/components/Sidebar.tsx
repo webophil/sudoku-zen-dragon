@@ -84,7 +84,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   Erreurs
                 </div>
                 <span className={cn('text-lg font-bold', errors >= 3 && 'text-destructive')}>
-                  {errors} / 4
+                  {errors} / 3
                 </span>
               </div>
             </CardContent>

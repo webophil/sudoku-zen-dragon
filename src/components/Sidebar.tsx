@@ -2,7 +2,7 @@ import React from 'react';
 import { Difficulty } from '@/lib/sudoku';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Timer, AlertCircle, RefreshCw, Trophy } from 'lucide-react';
+import { Timer, AlertCircle, RefreshCw, Trophy, Pause, Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface SidebarProps {
@@ -11,6 +11,8 @@ interface SidebarProps {
   onDifficultyChange: (difficulty: Difficulty) => void;
   errors: number;
   time: number;
+  isPaused: boolean;
+  onTogglePause: () => void;
   onNewGame: () => void;
   isGameWon: boolean;
   isGameOver: boolean;
@@ -28,6 +30,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onDifficultyChange,
   errors,
   time,
+  isPaused,
+  onTogglePause,
   onNewGame,
   isGameWon,
   isGameOver,
@@ -73,12 +77,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <CardTitle className="text-lg font-bold">Statistiques</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <div className="flex items-center justify-between text-sm">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Timer className="h-4 w-4" />
-                  Temps
+                  <span>{isPaused ? 'En pause' : 'Temps'}</span>
                 </div>
-                <span className="font-mono text-lg font-bold">{formatTime(time)}</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-lg font-bold tabular-nums">{formatTime(time)}</span>
+                  <Button
+                    type="button"
+                    variant={isPaused ? 'default' : 'outline'}
+                    size="icon"
+                    className="h-11 w-11 shrink-0"
+                    onClick={onTogglePause}
+                    disabled={isGameWon || isGameOver}
+                    aria-label="Pause du chronomètre"
+                    aria-pressed={isPaused}
+                    title={isPaused ? 'Reprendre le chronomètre' : 'Mettre le chronomètre en pause'}
+                  >
+                    {isPaused ? <Play className="h-4 w-4" aria-hidden="true" /> : <Pause className="h-4 w-4" aria-hidden="true" />}
+                  </Button>
+                </div>
               </div>
               <div className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2 text-muted-foreground">

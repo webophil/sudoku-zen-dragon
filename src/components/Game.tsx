@@ -10,6 +10,7 @@ export const Game: React.FC = () => {
   const [selectedCell, setSelectedCell] = useState<[number, number] | null>(null);
   const [errors, setErrors] = useState(0);
   const [time, setTime] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
   const [errorCells, setErrorCells] = useState<[number, number][]>([]);
@@ -21,6 +22,7 @@ export const Game: React.FC = () => {
     setSelectedCell(null);
     setErrors(0);
     setTime(0);
+    setIsPaused(false);
     setIsGameOver(false);
     setIsGameWon(false);
     setErrorCells([]);
@@ -32,12 +34,12 @@ export const Game: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (isGameOver || isGameWon) return;
+    if (isPaused || isGameOver || isGameWon) return;
     const interval = setInterval(() => {
       setTime(t => t + 1);
     }, 1000);
     return () => clearInterval(interval);
-  }, [isGameOver, isGameWon]);
+  }, [isPaused, isGameOver, isGameWon]);
 
   const handleCellClick = (row: number, col: number) => {
     if (isGameOver || isGameWon) return;
@@ -108,6 +110,8 @@ export const Game: React.FC = () => {
           onDifficultyChange={handleDifficultyChange}
           errors={errors}
           time={time}
+          isPaused={isPaused}
+          onTogglePause={() => setIsPaused(paused => !paused)}
           isGameWon={isGameWon}
           isGameOver={isGameOver}
           onNewGame={() => startNewGame(gameState.difficulty)}
@@ -137,6 +141,8 @@ export const Game: React.FC = () => {
           onDifficultyChange={handleDifficultyChange}
           errors={errors}
           time={time}
+          isPaused={isPaused}
+          onTogglePause={() => setIsPaused(paused => !paused)}
           onNewGame={() => startNewGame(gameState.difficulty)}
           isGameWon={isGameWon}
           isGameOver={isGameOver}

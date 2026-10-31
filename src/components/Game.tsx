@@ -43,6 +43,7 @@ export const Game: React.FC = () => {
 
   const handleCellClick = (row: number, col: number) => {
     if (isGameOver || isGameWon) return;
+    setIsPaused(false);
     setSelectedCell([row, col]);
   };
 
